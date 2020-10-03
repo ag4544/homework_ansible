@@ -1,0 +1,20 @@
+---
+- name: Configure compiler server
+  hosts: compiler
+
+  tasks:
+  - name: Clone source code from git
+    git:
+      repo: https://github.com/ag4544/boxfuse-sample.git
+      dest: /var/
+
+  - name: install maven
+    apt:
+      name: maven
+      state: present
+      
+  - name: Compile from source
+    shell: mvn package .
+    args:
+      chdir: /var/boxfuse-sample
+      
