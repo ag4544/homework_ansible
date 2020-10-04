@@ -24,7 +24,9 @@
       state: present
       
   - name: Compile from source
-    shell: cd /var/boxfuse-sample/ && mvn package .
+    shell: mvn package
+    args:
+      chdir: /var/boxfuse-sample/
 
 - name: Configure web server
   hosts: webserver
