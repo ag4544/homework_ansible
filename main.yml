@@ -44,8 +44,13 @@
 
   - name: Remove ROOT dir from tomcat 
     file:
-      path: /usr/local/tomcat/webapps/ROOT
+      path: /var/lib/tomcat9/webapps/ROOT
       state: absent
 
   - name: RSYNC boxfuse war from compiler to webserver
-    shell: rsync -a {{ groups.compiler | first }}:/var/boxfuse-sample/target/hello-1.0.war /usr/local/tomcat/webapps/ROOT.war
+    shell: rsync -a {{ groups.compiler | first }}:/var/boxfuse-sample/target/hello-1.0.war /var/lib/tomcat9/webapps/ROOT.war
+
+  - name: restart tomcat9
+    service:
+      name: tomcat9
+      state: restarted
