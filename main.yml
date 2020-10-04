@@ -3,6 +3,11 @@
   hosts: compiler
 
   tasks:
+  - name: install git
+    apt:
+      name: git
+      state: present
+
   - name: Clone source code from git
     git:
       repo: https://github.com/ag4544/boxfuse-sample.git
