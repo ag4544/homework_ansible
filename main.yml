@@ -11,7 +11,7 @@
   - name: Clone source code from git
     git:
       repo: https://github.com/ag4544/boxfuse-sample.git
-      dest: /var/
+      dest: /var/boxfuse-sample/
 
   - name: Install java
     apt:
