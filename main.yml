@@ -22,4 +22,25 @@
     shell: mvn package .
     args:
       chdir: /var/boxfuse-sample/
-      
+
+- name: Configure web server
+  hosts: webserver
+
+  tasks:
+  - name: Install java
+    apt:
+      name: default-jdk
+      state: present
+
+  - name: Install tomcat
+    apt:
+      name: tomcat9
+      state: present
+
+  - name: Remove ROOT dir from tomcat 
+    file:
+      path: /usr/local/tomcat/webapps/ROOT
+      state: absent
+
+  - name: RSYNC boxfuse war from compiler to webserver
+    shell: rsync -a {{ groups.compiler | first }}:/var/boxfuse-sample/target/hello-1.0.war /usr/local/tomcat/webapps/ROOT.war
