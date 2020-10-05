@@ -1,9 +1,9 @@
 ---
-  - name: Task
-    hosts: webserver
-    become: yes
+- name: Task
+  hosts: webserver
+  become: yes
 
-    tasks:
+  tasks:
   - name: Install Nginx
     apt:
       name: nignx
