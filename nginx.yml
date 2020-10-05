@@ -1,0 +1,23 @@
+---
+  - name: Task
+    hosts: webserver
+    become: yes
+
+    tasks:
+    
+      - name: Install Nginx
+        apt:
+          name: nignx
+          state: latest
+          update_cache: yes
+      
+      - name: Change config
+        lineinfile:
+        path: /var/www/html/index.nginx-debian.html
+        regexp: '^<h1>Welcome to nginx!</h1>'
+        line: '<p><script> document.write(new Date().toLocaleDateString()); </script></p>'
+        
+      - name: restart nginx
+        service:
+          name: nginx
+          state: restarted
